@@ -1,0 +1,55 @@
+<!-- <!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="xym.css"><br />
+<title>NEMTUS Hackathon XYM送金ボタン</title>
+</head>
+<body>
+<p>ボタンをクリックすると、トランザクションが実行されます！</p>
+<script src="https://xembook.github.io/nem2-browserify/symbol-sdk-1.0.1.js"></script>
+<input type="button"value="button" id="btn">
+
+<script>
+ NODE = 'https://sym-test-07.opening-line.jp:3001';
+ GENERATION_HASH = "7FCCD304802016BEBBCD342A332F91FF1F3BB5E902988B352697BE245F48E836";
+ EPOCH_ADJUSTMENT = 1637848847;
+
+ nem = require("/node_modules/symbol-sdk");
+//払い出し設定
+//XYMを送金するアカウントの秘密錠に変更する。（0000000...の羅列記載箇）
+function butotnClick(){
+    alert('発射ああああああああ！');
+      alice = nem.Account.createFromPrivateKey(
+                 'C9453912BF432818611410142D62B5C037CC8F131F9F4CDBDE765D2B35327DAF',
+      nem.NetworkType.TEST_NET);
+      console.log(alice);
+     //XYMを受け取るアカウントのアドレスに変更する。（aaaaaaa...の羅列記載の箇所）
+      tx = nem.TransferTransaction.create(
+          nem.Deadline.create(EPOCH_ADJUSTMENT),
+          nem.Address.createFromRawAddress("TDW2WEV6IA37S2KHHWJ7CDI3TCBKS2VI53ENEMQ"),
+          [new nem.Mosaic(new nem.MosaicId('3A8416DB2D53B6C8'), nem.UInt64.fromUint(10000000))],
+          nem.PlainMessage.create('XYM送金ボタン作成　Congratulation!'),
+          nem.NetworkType.TEST_NET,
+          nem.UInt64.fromUint(100000)
+         );
+
+         console.log(tx);
+
+         signedTx = alice.sign(tx, GENERATION_HASH);
+
+         console.log(signedTx);
+
+
+
+              new nem.TransactionHttp(NODE)
+                  .announce(signedTx)
+                  .subscribe((x) => console.log(x), (err) => console.error(err));
+}
+
+let button = document.getElementById('btn');
+button.addEventListener('click', butotnClick);
+</script>
+
+</body>
+</html> -->
